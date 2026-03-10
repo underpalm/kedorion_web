@@ -57,7 +57,7 @@ const MetadataBar = () => {
   return (
     <div className="fixed top-0 w-full z-[70] px-4 py-2 border-b border-black flex justify-between font-mono text-[9px] uppercase tracking-tighter bg-[#F2F2F2]" data-testid="metadata-bar">
       <div className="flex gap-4">
-        <span className="font-bold">KEDORION_R&D_CORE // v.2024.08</span>
+        <span className="font-bold">KEDORION_R&D_CORE // v.2025</span>
         <span className="hidden md:block opacity-40 italic">"ANCHORING_REALITY"</span>
       </div>
       <span className="hidden md:block">LOC: 51.2217° N, 6.7762° E</span>
@@ -81,6 +81,7 @@ const Navigation = ({ onMenuToggle, isMenuOpen, onNavigate }) => {
         </div>
 
         <div className="hidden lg:flex items-center gap-12 font-mono text-[10px] font-bold uppercase tracking-tighter">
+          <span className="opacity-40 italic cursor-default">Coming Soon</span>
         </div>
 
         <button 
@@ -98,7 +99,9 @@ const Navigation = ({ onMenuToggle, isMenuOpen, onNavigate }) => {
 const FullscreenMenu = ({ isOpen, onClose, onNavigate }) => {
   if (!isOpen) return null;
 
-  const menuItems = [];
+  const menuItems = [
+    { label: 'Coming Soon', href: null },
+  ];
 
   return (
     <motion.div
@@ -120,16 +123,26 @@ const FullscreenMenu = ({ isOpen, onClose, onNavigate }) => {
       </div>
       <div className="flex flex-col">
         {menuItems.map((item, idx) => (
-          <a
-            key={item.href}
-            href={`#${item.href}`}
-            onClick={onClose}
-            className="text-5xl md:text-[100px] font-teko font-bold italic uppercase tracking-tighter hover:text-[#FF4D00] transition-colors leading-[0.9] group"
-            data-testid={`menu-item-${item.href}`}
-          >
-            <span className="text-sm font-mono not-italic mr-4 text-black/20 group-hover:text-[#FF4D00]">0{idx+1}</span>
-            "{item.label}"
-          </a>
+          item.href ? (
+            <a
+              key={item.href}
+              href={`#${item.href}`}
+              onClick={onClose}
+              className="text-5xl md:text-[100px] font-teko font-bold italic uppercase tracking-tighter hover:text-[#FF4D00] transition-colors leading-[0.9] group"
+              data-testid={`menu-item-${item.href}`}
+            >
+              <span className="text-sm font-mono not-italic mr-4 text-black/20 group-hover:text-[#FF4D00]">0{idx+1}</span>
+              "{item.label}"
+            </a>
+          ) : (
+            <span
+              key={item.label}
+              className="text-5xl md:text-[100px] font-teko font-bold italic uppercase tracking-tighter leading-[0.9] opacity-30 cursor-default"
+            >
+              <span className="text-sm font-mono not-italic mr-4">0{idx+1}</span>
+              "{item.label}"
+            </span>
+          )
         ))}
       </div>
       <div className="flex justify-between font-mono text-[10px] font-bold text-black/40 uppercase">
