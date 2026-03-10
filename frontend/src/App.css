@@ -1,0 +1,157 @@
+/* Kedorion App Styles */
+
+/* Kill any injected Emergent badge */
+#emergent-badge,
+a[href*="emergent.sh"],
+a[id*="emergent"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Video background layer */
+.video-background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.1;
+    filter: grayscale(100%);
+}
+
+.video-background::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top right, #F2F2F2, transparent, transparent);
+}
+
+/* Navigation styles */
+.nav-link {
+    transition: color 0.2s ease-out;
+}
+
+.nav-link:hover {
+    color: #FF4D00;
+}
+
+/* Hero slide transition */
+.hero-slide {
+    transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1), 
+                transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hero-slide.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-slide.inactive {
+    opacity: 0;
+    transform: translateY(48px);
+    pointer-events: none;
+}
+
+/* Product color transitions */
+.product-title {
+    transition: color 0.5s ease-out;
+}
+
+/* Card hover effects */
+.sector-card {
+    transition: background-color 0.3s ease-out, color 0.3s ease-out;
+}
+
+.sector-card:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+/* File upload zone */
+.upload-zone {
+    border: 2px dashed #000000;
+    transition: border-color 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+.upload-zone:hover,
+.upload-zone.drag-over {
+    border-color: #FF4D00;
+    background-color: rgba(255, 77, 0, 0.05);
+}
+
+/* Progress marker */
+.progress-marker {
+    transition: transform 0.5s ease-out, background-color 0.3s ease-out;
+}
+
+.progress-marker.active {
+    background-color: #FF4D00;
+    transform: rotate(45deg) scale(1.5);
+}
+
+/* Menu overlay */
+.menu-overlay {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Form validation styles */
+.input-error {
+    border-color: #FF4D00 !important;
+}
+
+/* Success message animation */
+.success-message {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Job card styles */
+.job-card {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.job-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0px 0px #000000;
+}
+
+/* Scrollbar for modals */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #F2F2F2;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #000000;
+}
+

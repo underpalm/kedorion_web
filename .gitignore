@@ -1,11 +1,21 @@
 # Python
 .venv/
+venv/
 __pycache__/
 *.pyc
 
-# Local storage
+# Node
+node_modules/
+build/
+.env
+.env.local
+
+# Backend data
 storage/uploads/
 storage/applications.xlsx
+backend/newsletter_subscribers.xlsx
+backend/uploads/
 
 # OS
 .DS_Store
+Thumbs.db
