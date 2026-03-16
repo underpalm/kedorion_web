@@ -23,8 +23,8 @@ a[id*="emergent"] {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.1;
-    filter: grayscale(100%);
+    opacity: 0.8;
+    filter: grayscale(0%);
 }
 
 .video-background::after {

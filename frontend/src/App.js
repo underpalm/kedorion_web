@@ -372,12 +372,15 @@ const VideoBackground = () => {
   return (
     <div className="video-background">
       <div className="absolute inset-0 border-[30px] border-black/5 z-20 pointer-events-none"></div>
-      <img
-        src="/assets/images/brain.gif"
-        alt="background"
-        className="w-full h-full object-cover opacity-50"
+      <video
+        src="/assets/videos/space.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-full object-cover opacity-90"
       />
-      <div className="absolute inset-0 bg-[#F2F2F2]/30"></div>
+      <div className="absolute inset-0 bg-[#F2F2F2]/10"></div>
     </div>
   );
 };
