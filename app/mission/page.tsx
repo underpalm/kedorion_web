@@ -25,7 +25,7 @@ export default function Mission() {
             We believe technology is at its best when it serves people. Our mission is to develop intelligence that makes physical operations safer, more efficient and more responsive, ultimately to benefit humanity.
           </p>
           <div className={styles.heroButtons}>
-            <a href="/joinus" className={styles.btnPrimary}>Contact Us ↗</a>
+            <a href="/joinus" className={styles.btnPrimary}>Contact Us</a>
           </div>
         </div>
         <div className={styles.bottomCenter}>MISSION</div>

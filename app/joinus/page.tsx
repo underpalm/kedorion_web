@@ -22,7 +22,7 @@ export default function JoinUs() {
             THAT WORKS RELIABLY IN THE PHYSICAL WORLD
           </div>
           <div className={styles.heroButtons}>
-            <a href="mailto:contact@kedorion.io" className={styles.btnPrimary}>Apply Now ↗</a>
+            <a href="mailto:contact@kedorion.io" className={styles.btnPrimary}>Apply Now</a>
             <a href="/mission" className={styles.btnSecondary}>Our Mission</a>
           </div>
         </div>

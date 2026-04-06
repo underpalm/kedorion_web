@@ -28,7 +28,7 @@ export default function Home() {
             SO LIFE HAS SPACE AGAIN.
           </div>
           <div className={styles.heroButtons}>
-            <a href="/research" className={styles.btnPrimary}>Discover ↗</a>
+            <a href="/research" className={styles.btnPrimary}>Discover</a>
             <a href="#contact" className={styles.btnSecondary}>Contact Us</a>
           </div>
         </div>
