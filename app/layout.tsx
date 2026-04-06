@@ -7,6 +7,10 @@ const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600', '700'] }
 
 export const metadata: Metadata = {
   title: 'KEDORION',
+  icons: {
+    icon: '/kedorion.svg',
+    apple: '/kedorion.svg',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
