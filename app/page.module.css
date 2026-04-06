@@ -31,7 +31,7 @@
   font-weight: 700;
   letter-spacing: 0.02em;
   left: 24px;
-  top: 14px;
+  top: 50px;
   font-size: 14px;
   z-index: 2;
 }
@@ -42,7 +42,7 @@
   letter-spacing: 0.02em;
   left: 50%;
   transform: translateX(-50%);
-  top: 12px;
+  top: 50px;
   font-size: 28px;
   z-index: 2;
 }
@@ -52,7 +52,7 @@
   font-weight: 700;
   letter-spacing: 0.02em;
   right: 22px;
-  top: 14px;
+  top: 50px;
   text-align: right;
   font-size: 12px;
   line-height: 1.05;
