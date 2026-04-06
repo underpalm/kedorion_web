@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OBNONE</title>
+  
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  
+    .btn {
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 14px;
+      text-decoration: none;
+      border: 1px solid #ddd;
+      color: #111;
+      background: #f5f5f5;
+    }
+  
+    .btn.secondary {
+      background: transparent;
+      margin-bottom: 80px;
+      display: inline-block;
+    }
+  
+    html, body {
+      height: 100%;
+    }
+  
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 40px;
+      flex-shrink: 0;
+    }
+  
+    .logo img {
+      height: 33px;
+      display: block;
+    }
+  
+    .login-btn {
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #f5f5f5;
+      color: #111;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+  
+    .btn {
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      text-decoration: none;
+      border: 1px solid #ddd;
+      color: #111;
+      background: #f5f5f5;
+    }
+  
+    /* Layout */
+    .layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+    }
+  
+    /* Sidebar */
+    aside {
+      padding: 40px 32px;
+      font-size: 14px;
+    }
+  
+    aside ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+  
+    aside a {
+      text-decoration: none;
+      color: #9a9a9a;
+    }
+  
+    aside a:hover {
+      color: #000;
+    }
+  
+    /* Main */
+    main {
+      padding: 80px 40px 120px;
+      text-align: center;
+    }
+  
+    .meta {
+      font-size: 14px;
+      color: #9a9a9a;
+      margin-bottom: 16px;
+    }
+  
+    h1 {
+      font-size: 56px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+  
+    .subtitle {
+      font-size: 18px;
+      color: #cfcfcf;
+      margin-bottom: 32px;
+    }
+  
+    .download-btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid #e5e5e5;
+      color: #000;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 80px;
+    }
+   
+  
+    /* Video */
+    .video-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+  
+    .video-frame {
+      border-radius: 18px;
+      background: none; /* Entfernt den Farbverlauf */
+      padding: 24px;
+    }
+  
+    .video-inner {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 16px;
+    }
+  
+    video {
+      width: 100%;
+      border-radius: 10px;
+      display: block;
+    }
+  
+    /* Footer */
+    footer {
+      flex-shrink: 0;
+      padding: 32px 0 40px;
+      text-align: center;
+      font-size: 13px;
+      color: #9a9a9a;
+    }
+  
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+  
+      aside {
+        display: none;
+      }
+  
+      h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+<header>
+  <div class="logo">
+    <img src="kedorion.svg" alt="Kedorion Logo" />
+  </div>
+  <a href="#" class="btn">Discover OBNONE ↗</a>
+</header>
+  
+<div class="layout">
+  <aside>
+    <ul>
+      <li><a href="research.html">Obnone</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="main.html">About</a></li>
+      <li><a href="main2.html">Join Us</a></li>
+      
+      
+    </ul>
+  </aside>
+  
+  <main>
+    <div class="meta">October 21, 2025 · Product</div>
+    <h1>Introducing OBNONE</h1>
+    <p class="subtitle">Privay by Design.</p>
+    <a href="research.html" class="btn secondary">Join waitlist ↗</a>
+  
+  
+    <section class="video-frame">
+      <div class="video-frame">
+        <div class="video-inner">
+          <video autoplay loop muted playsinline>
+            <source src="video.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+  
+<footer>
+  © 2025 All rights reserved
+</footer>
+  
+</body>
+</html>

@@ -1,0 +1,177 @@
+@font-face {
+  font-family: 'TeXGyreHeros';
+  src: url('/fonts/custom-regular.otf') format('opentype'),
+       url('/fonts/custom-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeXGyreHeros';
+  src: url('/fonts/custom-bold.otf') format('opentype'),
+       url('/fonts/custom-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.page {
+  position: relative;
+  background: #1728E2;
+  color: #ffffff;
+  font-family: 'TeXGyreHeros', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.videoBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.videoOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1;
+}
+
+.topLeft {
+  position: absolute;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  left: 24px;
+  top: 14px;
+  font-size: 14px;
+  z-index: 2;
+}
+
+.topCenter {
+  position: absolute;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 12px;
+  font-size: 28px;
+  z-index: 2;
+}
+
+.topRight {
+  position: absolute;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  right: 22px;
+  top: 14px;
+  text-align: right;
+  font-size: 12px;
+  line-height: 1.05;
+  max-width: 260px;
+  z-index: 2;
+}
+
+.heroWrapper {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  z-index: 2;
+}
+
+.hero {
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-size: clamp(11px, 1.35vw, 22px);
+  width: 90vw;
+  line-height: 1.15;
+}
+
+.heroSubtitle {
+  text-align: center;
+  font-family: 'TeXGyreHeros', Helvetica, Arial, sans-serif;
+  font-size: clamp(13px, 1.1vw, 18px);
+  font-weight: 400;
+  line-height: 1.8;
+  color: #ffffff;
+  max-width: 50vw;
+  opacity: 0.9;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btnPrimary {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.4);
+  padding: 10px 28px;
+  font-family: 'TeXGyreHeros', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: not-allowed;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.btnSecondary {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 10px 28px;
+  font-family: 'TeXGyreHeros', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: not-allowed;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.bottomCenter {
+  position: absolute;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 8px;
+  font-size: 12px;
+  z-index: 2;
+}
+
+@media (max-width: 800px) {
+  .heroWrapper {
+    top: 42%;
+  }
+
+  .hero {
+    font-size: 2.6vw;
+    width: 94vw;
+  }
+
+  .topCenter {
+    font-size: 18px;
+  }
+
+  .topLeft {
+    font-size: 12px;
+  }
+}
