@@ -156,4 +156,8 @@
   .topLeft {
     font-size: 12px;
   }
+
+  .heroSubtitle {
+    max-width: 92vw;
+  }
 }

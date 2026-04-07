@@ -22,7 +22,7 @@ export default function Research() {
             SYSTEMS THAT OPERATE RELIABLY IN THE REAL WORLD
           </div>
           <div className={styles.heroButtons}>
-            <a href="/joinus" className={styles.btnPrimary}>Join Us ↗</a>
+            <a href="/joinus" className={styles.btnPrimary}>Join Us</a>
           </div>
         </div>
         <div className={styles.bottomCenter}>RESEARCH</div>
