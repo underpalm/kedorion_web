@@ -53,8 +53,6 @@ export default function Footer() {
             <span style={{ borderTop: '0.5px dashed rgba(255,255,255,0.4)', display: 'block', margin: '3px 0' }} />
             <span style={{ opacity: 0.6 }}>Ground Truth Architects.</span>
             <span style={{ opacity: 0.6 }}>Anchoring Intelligence in Reality.</span>
-            <span style={{ borderTop: '0.5px dashed rgba(255,255,255,0.4)', display: 'block', margin: '3px 0' }} />
-            <span style={{ opacity: 0.4 }}>© 2025 — All Rights Reserved.</span>
           </div>
 
           {/* Social + Legal — side-by-side on mobile, individual columns on desktop */}
@@ -66,7 +64,7 @@ export default function Footer() {
               <span style={{ borderTop: '0.5px dashed rgba(255,255,255,0.4)', display: 'block', margin: '3px 0' }} />
               {[
                 { label: 'LinkedIn', href: 'https://linkedin.com/company/kedorion' },
-                { label: 'Twitter / X', href: 'https://x.com/kedorionTech' },
+                { label: 'Twitter', href: 'https://x.com/kedorionTech' },
                 { label: 'Instagram', href: 'https://instagram.com/kedorion' },
               ].map(l => (
                 <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer"
@@ -110,7 +108,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div style={{ borderTop: '0.5px dashed rgba(255,255,255,0.4)', marginTop: '12px', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', opacity: 0.4, flexWrap: 'wrap', gap: '8px' }}>
           <span>[ KEDORION — SYS_FOOTER — V.001 ]</span>
-          <span>contact@kedorion.com</span>
+          <span>© {new Date().getFullYear()} — All Rights Reserved.</span>
         </div>
       </footer>
 
