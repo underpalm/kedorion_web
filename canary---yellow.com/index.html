@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1C4A96" />
+  <title>VAA Announcement | The Virgil Abloh Archive</title>
+  <meta name="description" content="The Virgil Abloh Archive™ — a collection of over 20,000 objects from Virgil's creative practice." />
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    /* ── Fonts ────────────────────────────────────────────── */
+    @font-face {
+      font-family: 'Business System';
+      src: url('fonts/AA00BusinessSystem-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Simon Mono';
+      src: url('fonts/SimonMono-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; padding: 0; margin: 0; }
+    :root { --vw: 1; --initial-vh: 100vh; --bg: #1C4A96; --fg: #FFFFFF; --border: #FFFFFF; --trans: 0.5s ease; }
+    html, body { overflow-x: clip; background-color: var(--bg); }
+    body { color: var(--fg); font-family: Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; min-height: 100vh; }
+    ::selection { background: #FFFFFF; color: #1C4A96; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Keyframes ────────────────────────────────────────── */
+    @keyframes fadeIn    { from { opacity: 0 } to { opacity: 1 } }
+    @keyframes slideUp   { from { transform: translateY(20vw) rotate(-20deg) } to { transform: translateY(0) rotate(0deg) } }
+    @keyframes letterIn  { from { opacity: 0 } to { opacity: 1 } }
+    @keyframes lineGrow  { from { clip-path: inset(0 100% 0 0) } to { clip-path: inset(0 0 0 0) } }
+    @keyframes graphicIn { from { opacity: 0 } to { opacity: var(--graphic-opacity, 0.2) } }
+
+    /* ── Film Grain ───────────────────────────────────────── */
+    #grain {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 6000; opacity: 0.03;
+      mix-blend-mode: hard-light;
+      background-image: url('images/noise.png');
+      background-repeat: repeat; background-position: 0 0;
+      image-rendering: pixelated;
+    }
+
+    /* ── Background Graphic (large faded logo) ────────────── */
+    #bg-graphic {
+      --graphic-opacity: 0.2;
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    #bg-graphic-inner {
+      position: absolute; top: calc(var(--initial-vh, 100vh)); right: calc(-8vw);
+      opacity: 0;
+      animation: graphicIn 0.6s ease-out 1.4s forwards;
+      transform: translateY(-100%);
+      color: #FFFFFF;
+      transition: color var(--trans);
+    }
+    @media (min-width: 700px) {
+      #bg-graphic-inner { top: auto; bottom: -2vw; transform: none; }
+      #bg-graphic-inner svg { width: calc(64vw); height: auto; }
+    }
+    #bg-graphic-inner svg { display: block; width: 100vw; height: auto; fill: currentColor; }
+
+    /* ── Header ───────────────────────────────────────────── */
+    header {
+      display: flex; flex-direction: column; width: 100%;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      pointer-events: none;
+    }
+    @media (max-width: 700px) {
+      header { position: fixed; top: 11px; left: 11px; right: 11px; width: auto; background-color: var(--bg); transition: background-color var(--trans); }
+    }
+    .header-border-top {
+      height: 7.5px; width: 100%;
+      border: 0.5px dashed var(--border); border-bottom: none;
+      transition: border-color var(--trans);
+    }
+    .header-inner {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      width: 100%; font-family: 'Simon Mono', monospace; padding: 0 8px;
+    }
+    .header-border-bottom {
+      height: 7.5px; width: 100%;
+      border: 0.5px dashed var(--border); border-top: none;
+      transition: border-color var(--trans);
+    }
+    .header-col { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .header-col-left { text-align: left; }
+    .header-col-right { text-align: right; }
+    .header-label-row {
+      display: flex; flex-direction: column;
+      font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em;
+      line-height: 1.4; white-space: nowrap;
+    }
+    .header-label-row .row-line {
+      display: flex; justify-content: space-between; gap: 8px;
+      overflow: hidden;
+    }
+    .header-label-row .row-line span {
+      opacity: 0;
+      animation: letterIn 0.08s ease forwards;
+    }
+    .header-divider {
+      display: block; width: 100%; height: 1px;
+      border-top: 0.5px dashed var(--border); margin: 2px 0;
+      transform-origin: left center; transform: scaleX(0);
+      animation: lineGrow 0.35s ease-out forwards;
+      transition: border-color var(--trans);
+    }
+    .header-nav { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; font-size: 9px; }
+    .nav-link {
+      display: flex; align-items: center; gap: 4px;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      opacity: 0; animation: fadeIn 0.08s ease forwards;
+      pointer-events: auto; cursor: pointer;
+    }
+    .nav-link:hover { opacity: 0.7; }
+    .nav-arrow { display: inline-block; width: 6px; height: 6px; }
+    .header-time { font-size: 9px; opacity: 0; animation: fadeIn 0.12s ease forwards; }
+
+    /* ── Main Wrapper ─────────────────────────────────────── */
+    #page {
+      position: relative; min-height: 100vh; min-height: 100dvh;
+      overflow-x: clip;
+    }
+    main {
+      position: fixed; inset: 0; z-index: 1; padding: 12px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    @media (max-width: 700px) {
+      main { position: relative; inset: auto; }
+    }
+
+    /* ── ANNOUNCEMENT Heading ─────────────────────────────── */
+    .announcement-wrap {
+      flex: 0 0 auto; display: flex; justify-content: center; align-items: center;
+      padding: 1rem 0; position: relative; z-index: 1;
+    }
+    .announcement-title {
+      font-size: 24.55vw;
+      font-weight: 700; text-transform: uppercase;
+      letter-spacing: -0.06em; color: var(--fg);
+      text-align: center; line-height: 0.8;
+      margin: 0; margin-left: -0.04em;
+      transition: color var(--trans);
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      margin-bottom: 4rem;
+      transform: translateY(20vw) rotate(-20deg);
+      animation: slideUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) 1200ms forwards;
+    }
+    @media (min-width: 720px) {
+      .announcement-title {
+        font-size: 12.55vw;
+        margin-left: -0.08em;
+        margin-bottom: 0;
+      }
+      .announcement-line { display: inline; white-space: nowrap; }
+    }
+    .announcement-line { display: block; }
+    .announcement-letter {
+      display: inline-block; opacity: 0;
+      animation: letterIn 0.08s ease forwards;
+    }
+
+    /* ── Content Panels ───────────────────────────────────── */
+    .panels-bottom {
+      position: fixed; top: 92px; left: 0; right: 0; z-index: 2;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 12px; padding-top: 0;
+    }
+    @media (min-width: 700px) {
+      .panels-bottom { top: auto; bottom: 0; }
+    }
+    .panels-row {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 1rem; width: 100%;
+    }
+
+    /* ── Info Panel (left) ────────────────────────────────── */
+    .panel-info {
+      font-family: 'Simon Mono', monospace;
+      font-size: 9px; text-transform: uppercase;
+      letter-spacing: 0.08em; line-height: 1.4;
+      display: flex; flex-direction: column; gap: 2px;
+      flex-shrink: 0;
+    }
+    .panel-info .label-row {
+      display: flex; justify-content: space-between; gap: 8px; white-space: nowrap;
+    }
+    .panel-info .title-big {
+      font-family: 'Business System', Helvetica, sans-serif;
+      font-size: clamp(14px, 2.5vw, 28px);
+      font-weight: 400; text-transform: uppercase;
+      letter-spacing: -0.02em; line-height: 0.95;
+      white-space: nowrap;
+    }
+    .panel-info .title-big .row { display: flex; justify-content: space-between; }
+
+    /* ── Archive Description (right) ─────────────────────── */
+    .panel-desc {
+      font-family: 'Simon Mono', monospace;
+      font-size: 9px; text-transform: uppercase;
+      letter-spacing: 0.06em; line-height: 1.5;
+      max-width: 420px; text-align: right;
+      flex-shrink: 0;
+    }
+    .panel-desc .meta-row {
+      display: flex; justify-content: space-between; gap: 8px; margin-bottom: 4px;
+    }
+    .panel-desc p { margin-bottom: 0.6rem; opacity: 0; animation: fadeIn 0.2s ease forwards; }
+
+    /* ── Sign-up Form ─────────────────────────────────────── */
+    #signup-section {
+      position: relative; z-index: 3;
+      display: flex; flex-direction: column;
+      pointer-events: auto;
+    }
+    .signup-card {
+      background-color: #B9E7FE; color: #1C4A96;
+      padding: 12px; font-family: 'Simon Mono', monospace;
+      font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .signup-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .signup-header-left .meta { display: flex; gap: 6px; margin-bottom: 2px; }
+    .signup-header-left .join-title {
+      font-family: 'Business System', Helvetica, sans-serif;
+      font-size: clamp(22px, 4vw, 48px);
+      font-weight: 400; text-transform: uppercase;
+      letter-spacing: -0.03em; line-height: 0.9;
+    }
+    .signup-header-right .meta { display: flex; gap: 6px; margin-bottom: 2px; }
+    .signup-body { display: flex; gap: 12px; flex-wrap: wrap; }
+    .signup-desc { flex: 1; min-width: 200px; max-width: 320px; }
+    .signup-desc p { margin-bottom: 0.5rem; line-height: 1.5; letter-spacing: 0.04em; text-transform: none; font-size: 8.5px; }
+    .signup-form-wrap { flex: 1; min-width: 200px; max-width: 300px; }
+    .signup-form { display: flex; flex-direction: column; gap: 4px; }
+    .signup-form input[type="text"],
+    .signup-form input[type="email"] {
+      width: 100%; border: none; border-bottom: 0.5px solid #1C4A96;
+      background: transparent; color: #1C4A96;
+      font-family: 'Simon Mono', monospace; font-size: 9px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 0; outline: none;
+    }
+    .signup-form input::placeholder { color: #1C4A96; opacity: 0.6; }
+    .checkbox-row {
+      display: flex; align-items: flex-start; gap: 6px;
+      font-size: 8px; line-height: 1.4; text-transform: none; margin-top: 2px;
+    }
+    .checkbox-row input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; accent-color: #1C4A96; }
+    .submit-btn {
+      margin-top: 6px; width: 100%;
+      background: #1C4A96; color: #FFFFFF;
+      border: none; font-family: 'Simon Mono', monospace;
+      font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 6px 8px; cursor: pointer; transition: opacity 0.2s;
+    }
+    .submit-btn:hover { opacity: 0.85; }
+    .form-legal {
+      margin-top: 4px; font-size: 7px; text-transform: none;
+      letter-spacing: 0.03em; line-height: 1.4; color: #1C4A96;
+    }
+    .form-legal a { text-decoration: underline; }
+    .signup-divider {
+      height: 0; border-top: 0.5px dashed #1C4A96; margin: 4px 0;
+    }
+
+    /* ── Spacer divs ─────────────────────────────────────── */
+    .spacer-sm { height: 0.5vh; flex-shrink: 0; }
+
+    /* ── Responsive tweaks ───────────────────────────────── */
+    @media (max-width: 700px) {
+      main { padding: 11px; }
+      .announcement-title { font-size: 18vw; margin-bottom: 2rem; }
+      .panels-bottom { position: relative; top: auto; padding: 11px; padding-top: 0; }
+      .panels-row { flex-direction: column; gap: 16px; }
+      .panel-desc { text-align: left; }
+      .signup-body { flex-direction: column; }
+    }
+
+    /* ── Letter animation delays (applied via JS) ────────── */
+  </style>
+</head>
+<body>
+
+  <!-- Film grain -->
+  <div id="grain" aria-hidden="true"></div>
+
+  <!-- Background faded logo graphic -->
+  <div id="bg-graphic" aria-hidden="true">
+    <div id="bg-graphic-inner">
+      <svg width="1200" height="333" viewBox="0 0 90 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M60.7992 0H34.2172C32.6147 0 29.7869 2.40385 29.7869 6.44231V14.1346C29.7869 14.1346 29.7869 16.3462 28.3729 16.3462C27.7445 16.3462 27.179 16.1859 26.6762 15.8654L1.69672 0.384615C0.942623 -0.0961538 0 0.384615 0 1.34615V7.30769C0 7.75641 0.188525 8.07692 0.565574 8.26923L24.791 23.2692C25.4508 23.6538 26.6762 24.1346 27.3361 24.1346C28.5615 24.1346 31.7664 23.3654 31.7664 18.8462V7.40385C31.7664 7.40385 31.7664 6.44231 32.709 6.44231H60.6107C61.0505 6.44231 61.3648 6.57051 61.5533 6.82692L65.041 10.2885L65.418 11.25V12.6923C65.418 13.2051 65.1981 13.6218 64.7582 13.9423C64.1926 14.1987 63.6899 14.1346 63.25 13.75L60.2336 11.25C59.9822 11.0577 59.6995 10.9615 59.3852 10.9615H38.1762C36.8566 11.0897 36.1339 11.8269 36.0082 13.1731V21.7308C36.1339 23.0769 36.8566 23.8141 38.1762 23.9423H60.7992C61.7418 23.9423 62.3074 22.9808 61.9303 22.0192L60.5164 19.6154C60.265 19.1026 59.888 18.8462 59.3852 18.8462H42.9836C42.418 18.8462 42.1667 18.5256 42.2295 17.8846V14.5192C42.2295 13.8782 42.4809 13.5577 42.9836 13.5577H58.9139C59.3538 13.5577 59.6995 13.75 59.9508 14.1346L65.041 23.4615C65.3552 23.7821 65.7322 23.9423 66.1721 23.9423C67.0519 23.9423 67.5232 23.4615 67.5861 22.5V7.88461C67.5861 7.88461 67.3975 0 60.7992 0Z" fill="currentColor"/>
+        <path d="M83.0451 0H76.7295C75.9126 0.0641026 75.4727 0.544872 75.4098 1.44231V5C75.4727 5.83333 75.9126 6.3141 76.7295 6.44231H82.9508C83.3907 6.44231 83.7049 6.57051 83.8934 6.82692L87.2869 10.2885C87.6011 10.5449 87.7582 10.8654 87.7582 11.25V12.6923C87.7582 13.2051 87.5382 13.6218 87.0984 13.9423C86.4699 14.1987 85.9672 14.1346 85.5902 13.75L82.5738 11.25C82.3224 11.0577 82.0082 10.9295 81.6311 10.8654H73.1475C72.5475 10.8654 71.9721 11.1085 71.5479 11.5413C71.1236 11.9741 70.8852 12.561 70.8852 13.1731V21.7308C71.0109 23.0769 71.7336 23.8141 73.0533 23.9423H82.9508C83.8934 23.9423 84.5533 22.9808 84.1762 22.0192L82.7623 19.6154C82.5109 19.1026 82.1025 18.8462 81.5369 18.8462H77.8607C77.3579 18.8462 77.1066 18.5256 77.1066 17.8846V14.5192C77.1066 13.8782 77.3579 13.5577 77.8607 13.5577H81.0656C81.5683 13.5577 81.9454 13.75 82.1967 14.1346L87.2869 23.4615C87.5383 23.8462 87.9153 24.0064 88.418 23.9423C89.2978 23.8141 89.7691 23.3333 89.832 22.5V7.88461C89.832 7.88461 89.6434 0 83.0451 0Z" fill="currentColor"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="site-header">
+    <div class="header-border-top"></div>
+    <div class="header-inner">
+      <!-- Left side -->
+      <div class="header-col header-col-left">
+        <div class="header-label-row" id="header-left-text"></div>
+      </div>
+      <!-- Right nav -->
+      <div class="header-col header-col-right">
+        <nav class="header-nav" id="header-nav"></nav>
+      </div>
+    </div>
+    <div class="header-border-bottom"></div>
+  </header>
+
+  <!-- Page wrapper -->
+  <div id="page">
+    <main>
+      <!-- ANNOUNCEMENT heading -->
+      <div style="position:relative;z-index:1;display:flex;flex-direction:column;justify-content:space-between;flex:1;">
+        <div></div>
+        <div class="announcement-wrap">
+          <h1 class="announcement-title" id="announcement-title"></h1>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom panels -->
+    <div class="panels-bottom" id="panels-bottom">
+      <div class="panels-row">
+
+        <!-- Left: Archive identity -->
+        <div class="panel-info" id="panel-left"></div>
+
+        <!-- Right: Archive description -->
+        <div class="panel-desc" id="panel-right"></div>
+
+      </div>
+    </div>
+
+    <!-- Scroll spacer so form is below fold -->
+    <div style="height:100vh;height:100dvh;flex-shrink:0;pointer-events:none;"></div>
+
+    <!-- Sign-up section -->
+    <section id="signup-section">
+      <div class="signup-card">
+        <div class="signup-header">
+          <div class="signup-header-left">
+            <div class="meta">
+              <span>V.A.A. ARCHIVE</span>
+              <span style="flex:1;border-top:0.5px dashed #1C4A96;align-self:center;margin:0 4px;"></span>
+              <span>S-26</span>
+              <span style="flex:1;border-top:0.5px dashed #1C4A96;align-self:center;margin:0 4px;"></span>
+              <span>V. 001</span>
+            </div>
+            <div class="join-title">
+              <div style="display:flex;justify-content:space-between;">
+                <span>Join</span>&nbsp;<span>the</span>
+              </div>
+              <div>archive</div>
+            </div>
+          </div>
+          <div class="signup-header-right">
+            <div class="meta">
+              <span>MEMBERSHIP SIGNUP</span>
+              <span style="flex:1;border-top:0.5px dashed #1C4A96;align-self:center;margin:0 4px;"></span>
+              <span>DD/MM/YY</span>
+              <span style="flex:1;border-top:0.5px dashed #1C4A96;align-self:center;margin:0 4px;"></span>
+              <span>V. 001</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="signup-divider"></div>
+
+        <div class="signup-body">
+          <div class="signup-desc">
+            <p>Free and open to all. Members receive first word on everything the Archive is working on: stories, books, exhibitions, events, and V.A.A. editions of Virgil's work.</p>
+            <p>For students, emerging creatives, and lifelong learners: Sign up for the Archive Toolkit, a set of free resources from the Archive refreshed periodically throughout the year. Add a brief note about yourself and an example of your recent work. To celebrate our launch, 100 Archive Toolkit subscribers will be gifted a pair of the Air Jordan 1 High OG x V.A.A. and a copy of The Virgil Reader, Volume 001.</p>
+          </div>
+
+          <div class="signup-form-wrap">
+            <form class="signup-form" onsubmit="return false;">
+              <input type="text" placeholder="Name" required autocomplete="name" />
+              <input type="email" placeholder="Email Address" required autocomplete="email" />
+              <label class="checkbox-row">
+                <input type="checkbox" id="is-student" />
+                <span>I'm a student / emerging creative&nbsp;— send me the Archive Toolkit</span>
+              </label>
+              <button type="submit" class="submit-btn">Sign Up</button>
+              <p class="form-legal">
+                By signing up, you agree to our
+                <a href="/privacy-policy">Privacy Policy</a>
+                and <a href="/terms">Terms and Conditions</a>.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div style="height:100vh;height:100dvh;flex-shrink:0;"></div>
+  </div>
+
+  <script>
+    // ── Utility: animate letters with stagger ─────────────
+    function animateLetters(containerEl, text, baseDelayMs, letterDelayMs) {
+      text.split('').forEach((ch, i) => {
+        const span = document.createElement('span');
+        span.className = 'announcement-letter';
+        span.style.animationDelay = (baseDelayMs + i * letterDelayMs) + 'ms';
+        span.textContent = ch;
+        containerEl.appendChild(span);
+      });
+    }
+
+    // ── Announcement title ────────────────────────────────
+    (function buildTitle() {
+      const title = document.getElementById('announcement-title');
+      const line1 = document.createElement('span');
+      line1.className = 'announcement-line';
+      const line2 = document.createElement('span');
+      line2.className = 'announcement-line';
+      title.appendChild(line1);
+      title.appendChild(line2);
+      const BASE = 1200, LD = 70;
+      const word1 = 'ANNOUN';
+      const word2 = 'CEMENT';
+      animateLetters(line1, word1, BASE, LD);
+      animateLetters(line2, word2, BASE + word1.length * LD, LD);
+    })();
+
+    // ── Header left text ──────────────────────────────────
+    (function buildHeaderLeft() {
+      const el = document.getElementById('header-left-text');
+      const BASE = 0, LD = 35;
+      let offset = 0;
+
+      function addLine(text, delay) {
+        const row = document.createElement('div');
+        row.className = 'row-line';
+        text.split('').forEach((ch, i) => {
+          const s = document.createElement('span');
+          s.style.animationDelay = (delay + i * LD) + 'ms';
+          s.textContent = ch === ' ' ? '\u00a0' : ch;
+          row.appendChild(s);
+        });
+        el.appendChild(row);
+        return delay + text.length * LD;
+      }
+
+      function addDivider(delay) {
+        const d = document.createElement('span');
+        d.className = 'header-divider';
+        d.style.animationDelay = delay + 'ms';
+        el.appendChild(d);
+        return delay + 350;
+      }
+
+      offset = addLine('LAST UPDATED 2026', BASE);
+      offset = addDivider(Math.round(offset));
+      offset = addLine('DD/MM/YY', Math.round(offset));
+      offset = addDivider(Math.round(offset));
+
+      // bottom block: two lines
+      const rowWrap = document.createElement('div');
+      rowWrap.style.cssText = 'display:flex;flex-direction:column;';
+
+      const r1 = document.createElement('div');
+      r1.style.cssText = 'display:flex;justify-content:space-between;gap:8px;';
+      ['DD/MM/YY', 'PAGE N/A'].forEach(t => {
+        const b = document.createElement('span');
+        t.split('').forEach((ch, i) => {
+          const s = document.createElement('span');
+          s.style.animationDelay = (offset + i * LD) + 'ms';
+          s.style.opacity = '0';
+          s.style.animation = `letterIn 0.08s ease forwards ${offset + i * LD}ms`;
+          s.textContent = ch === ' ' ? '\u00a0' : ch;
+          b.appendChild(s);
+        });
+        r1.appendChild(b);
+      });
+      offset += ('DD/MM/YY'.length + 'PAGE N/A'.length) * LD / 2;
+
+      const r2 = document.createElement('div');
+      const announcement_text = '[ VAA_ANNOUNCEMENT ]';
+      announcement_text.split('').forEach((ch, i) => {
+        const s = document.createElement('span');
+        s.style.animationDelay = (offset + i * LD) + 'ms';
+        s.style.opacity = '0';
+        s.style.animation = `letterIn 0.08s ease forwards ${offset + i * LD}ms`;
+        s.textContent = ch === ' ' ? '\u00a0' : ch;
+        r2.appendChild(s);
+      });
+
+      rowWrap.appendChild(r1);
+      rowWrap.appendChild(r2);
+      el.appendChild(rowWrap);
+    })();
+
+    // ── Header nav ────────────────────────────────────────
+    (function buildNav() {
+      const nav = document.getElementById('header-nav');
+      const links = [
+        { text: '↗ AIR JORDAN 1', href: '/aj1', delay: 2800 },
+        { text: '↗ CANARY YELLOW', href: 'https://canary---yellow.com/', target: '_blank', delay: 2950 },
+      ];
+      links.forEach(l => {
+        const a = document.createElement('a');
+        a.className = 'nav-link';
+        a.href = l.href;
+        if (l.target) { a.target = l.target; a.rel = 'noopener noreferrer'; }
+        a.style.animationDelay = l.delay + 'ms';
+        a.textContent = l.text;
+        nav.appendChild(a);
+      });
+      // Clock
+      const clock = document.createElement('div');
+      clock.className = 'header-time';
+      clock.style.animationDelay = '3500ms';
+      nav.appendChild(clock);
+      function updateClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        clock.textContent = h + ':' + m;
+      }
+      updateClock();
+      setInterval(updateClock, 30000);
+    })();
+
+    // ── Bottom panels ─────────────────────────────────────
+    (function buildPanels() {
+      // Left panel
+      const left = document.getElementById('panel-left');
+      left.innerHTML = `
+        <div class="label-row">
+          <span>V.A.A. ARCHIVE</span>
+          <span style="flex:1;border-top:0.5px dashed #fff;align-self:center;margin:0 4px;"></span>
+          <span>DD/MM/YY</span>
+          <span style="flex:1;border-top:0.5px dashed #fff;align-self:center;margin:0 4px;"></span>
+          <span>MISSION</span>
+        </div>
+        <div class="title-big" style="margin-top:4px;">
+          <div class="row"><div>The</div><div>Virgil</div></div>
+          <div style="white-space:nowrap;">Abloh Archive</div>
+        </div>
+      `;
+
+      // Right panel
+      const right = document.getElementById('panel-right');
+      right.innerHTML = `
+        <div class="meta-row">
+          <span>V.A.A. ARCHIVE</span>
+          <span style="flex:1;border-top:0.5px dashed #fff;align-self:center;margin:0 4px;"></span>
+          <span>S-26</span>
+          <span style="flex:1;border-top:0.5px dashed #fff;align-self:center;margin:0 4px;"></span>
+          <span>V. 001</span>
+        </div>
+        <p style="animation-delay:1460ms;">The Virgil Abloh Archive™ is a collection of over 20,000 objects from Virgil's creative practice, spanning fashion, design, music, art, advertising, including original works, prototypes, sketches, digital media, and ephemera, alongside materials from his collection and library. Privately stewarded and supported by Virgil Abloh Securities Founder and CEO Shannon Abloh, the Archive™ will start with a slate of public-facing initiatives in Fall 2025.</p>
+        <p style="animation-delay:2200ms;">The mission of the Virgil Abloh Archive™ is to keep Virgil's ideas alive. As an evolving record of his work and worldview, the Archive™ seeks to advance public understanding of his creative legacy by making his work accessible to anyone seeking to study and build upon his ideas.</p>
+      `;
+    })();
+
+    // ── Theme cycling on click ────────────────────────────
+    const themes = [
+      { bg: '#1C4A96', fg: '#FFFFFF', border: '#FFFFFF', formBg: '#B9E7FE', formFg: '#1C4A96' },
+      { bg: '#B9E7FE', fg: '#1C4A96', border: '#1C4A96', formBg: '#1C4A96', formFg: '#FFFFFF' },
+      { bg: '#FFFFFF', fg: '#1C4A96', border: '#1C4A96', formBg: '#1C4A96', formFg: '#FFFFFF' },
+    ];
+    let themeIdx = 0;
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('a,button,input,label,form')) return;
+      themeIdx = (themeIdx + 1) % themes.length;
+      const t = themes[themeIdx];
+      document.documentElement.style.setProperty('--bg', t.bg);
+      document.documentElement.style.setProperty('--fg', t.fg);
+      document.documentElement.style.setProperty('--border', t.border);
+      document.body.style.backgroundColor = t.bg;
+      document.body.style.color = t.fg;
+      const card = document.querySelector('.signup-card');
+      if (card) { card.style.backgroundColor = t.formBg; card.style.color = t.formFg; }
+    });
+
+    // ── Init viewport var ─────────────────────────────────
+    document.documentElement.style.setProperty('--initial-vh', window.innerHeight + 'px');
+    window.addEventListener('resize', () => {
+      document.documentElement.style.setProperty('--initial-vh', window.innerHeight + 'px');
+    });
+  </script>
+</body>
+</html>

@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${inter.className} bg-white text-[#111]`}>
         <TopBar />
-        <div className="flex flex-col min-h-screen pt-[33px]">
+        <div className="flex flex-col min-h-screen pt-[41px]">
           {children}
         </div>
       </body>

@@ -1,0 +1,162 @@
+.grain {
+  position: fixed; top: -10%; left: -10%; width: 120%; height: 120%;
+  pointer-events: none; z-index: 6000;
+  opacity: 0.08; mix-blend-mode: overlay;
+  background-image: url('/images/noise.png');
+  background-repeat: repeat; background-size: 200px 200px;
+  image-rendering: pixelated;
+  animation: grainShift 0.6s steps(10, end) infinite;
+  will-change: transform;
+}
+.bgGraphic { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.bgGraphicInner { position: absolute; bottom: -2vw; right: -4vw; opacity: 0; animation: graphicIn 0.6s ease-out 1.4s forwards; }
+.bgLogo { display: block; width: 58vw; height: auto; opacity: 0.15; }
+
+.page {
+  position: relative; min-height: calc(100vh - 41px);
+  display: flex; flex-direction: column;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+.subHeader { flex-shrink: 0; width: 100%; z-index: 50; pointer-events: none; }
+.headerBorderTop  { height: 7.5px; border: 0.5px dashed; border-bottom: none; transition: border-color 0.5s ease; }
+.headerBorderBottom { height: 7.5px; border: 0.5px dashed; border-top: none; transition: border-color 0.5s ease; }
+.headerInner { display: flex; justify-content: space-between; align-items: center; padding: 0 12px; font-family: 'Courier Prime', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; }
+.headerLeft { display: flex; align-items: flex-start; }
+.headerMetaBlock { display: flex; flex-direction: column; gap: 2px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4; }
+.headerMetaRow { display: flex; gap: 8px; }
+.headerDividerLine { display: block; width: 100%; border-top: 0.5px dashed; margin: 1px 0; transition: border-color 0.5s ease; }
+.headerRight { pointer-events: auto; }
+
+/* ── Content ── */
+.content { flex: 1; position: relative; z-index: 1; cursor: default; }
+
+.heroSection {
+  padding: 48px 12px 32px;
+  border-bottom: 0.5px dashed;
+}
+.heroLabel {
+  font-family: 'Courier Prime', monospace; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5;
+  margin-bottom: 16px;
+}
+.heroTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(48px, 9vw, 120px);
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: -0.05em; line-height: 0.88;
+  margin: 0;
+}
+
+/* ── Sections ── */
+.section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 0.5px dashed;
+}
+.sectionSingle {
+  padding: 40px 12px;
+  border-bottom: 0.5px dashed;
+}
+.sectionLeft {
+  padding: 40px 12px;
+  border-right: 0.5px dashed;
+}
+.sectionRight {
+  padding: 40px 12px;
+}
+.sectionLabel {
+  font-family: 'Courier Prime', monospace; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  opacity: 0.4; margin-bottom: 16px; display: block;
+}
+.sectionTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(20px, 2.5vw, 36px);
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: -0.03em; line-height: 1;
+  margin: 0 0 20px;
+}
+.sectionBody {
+  font-family: 'Courier Prime', monospace;
+  font-size: 18px; line-height: 1.85;
+  letter-spacing: 0.02em; opacity: 0.75;
+  max-width: 520px;
+}
+.sectionBody p { margin-bottom: 14px; }
+.sectionBody p:last-child { margin-bottom: 0; }
+
+/* ── Values grid ── */
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+.valueCard {
+  padding: 28px 12px;
+  border-right: 0.5px dashed;
+}
+.valueCard:last-child { border-right: none; }
+.valueNumber {
+  font-family: 'Courier Prime', monospace; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  opacity: 0.3; margin-bottom: 12px;
+}
+.valueTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(16px, 1.8vw, 24px);
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: -0.02em; margin-bottom: 10px;
+}
+.valueText {
+  font-family: 'Courier Prime', monospace;
+  font-size: 18px; line-height: 1.7;
+  letter-spacing: 0.02em; opacity: 0.6;
+}
+
+/* ── Image placeholder ── */
+.imgPlaceholder {
+  width: 100%; aspect-ratio: 4/3;
+  border: 0.5px dashed;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; opacity: 0.3;
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.imgPlaceholderWide {
+  width: 100%; aspect-ratio: 16/6;
+  border: 0.5px dashed;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; opacity: 0.3;
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+/* ── Pull quote ── */
+.pullQuote {
+  padding: 48px 12px;
+  border-bottom: 0.5px dashed;
+}
+.quoteText {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(20px, 3vw, 42px);
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: -0.03em; line-height: 1.05;
+  max-width: 800px;
+}
+.quoteSource {
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.08em; opacity: 0.4;
+  margin-top: 16px;
+}
+
+@media (max-width: 700px) {
+  .section { grid-template-columns: 1fr; }
+  .sectionLeft { border-right: none; border-bottom: 0.5px dashed; }
+  .valuesGrid { grid-template-columns: 1fr; }
+  .valueCard { border-right: none; border-bottom: 0.5px dashed; }
+}

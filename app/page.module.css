@@ -1,163 +1,1027 @@
-.page {
-  position: relative;
-  background: #1728E2;
-  color: #ffffff;
-  font-family: 'TeXGyreHeros', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  width: 100%;
-  height: 100vh;
+/* ── Film Grain ───────────────────────────────────── */
+.grain {
+  position: fixed;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  pointer-events: none;
+  z-index: 6000;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url('/images/noise.png');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  image-rendering: pixelated;
+  animation: grainShift 0.6s steps(10, end) infinite;
+  will-change: transform;
+}
+
+/* ── Background Logo ──────────────────────────────── */
+.bgGraphic {
+  --graphic-opacity: 0.15;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
   overflow: hidden;
 }
 
-.videoBg {
+.bgGraphicInner {
   position: absolute;
-  inset: 0;
+  bottom: -2vw;
+  right: -4vw;
+  opacity: 0;
+  animation: graphicIn 0.6s ease-out 1.4s forwards;
+}
+
+.bgLogo {
+  display: block;
+  width: 58vw;
+  height: auto;
+  opacity: 0.15;
+  transition: filter 0.5s ease;
+}
+
+/* ── Page ─────────────────────────────────────────── */
+.page {
+  position: relative;
+  min-height: calc(100vh - 41px);
+  transition: background 0.5s ease, color 0.5s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Sub-header ───────────────────────────────────── */
+.subHeader {
+  flex-shrink: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
+  z-index: 50;
+  pointer-events: none;
 }
 
-.videoOverlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  z-index: 1;
+.headerBorderTop {
+  height: 7.5px;
+  width: 100%;
+  border: 0.5px dashed;
+  border-bottom: none;
+  transition: border-color 0.5s ease;
 }
 
-.topLeft {
+.headerBorderBottom {
+  height: 7.5px;
+  width: 100%;
+  border: 0.5px dashed;
+  border-top: none;
+  transition: border-color 0.5s ease;
+}
+
+.headerInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: flex-start;
+}
+
+.headerMetaBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+}
+
+.headerMetaRow {
+  display: flex;
+  gap: 8px;
+}
+
+.headerDividerLine {
+  display: block;
+  width: 100%;
+  border-top: 0.5px dashed;
+  margin: 1px 0;
+  transition: border-color 0.5s ease;
+}
+
+.dash {
+  display: inline-block;
+  width: 24px;
+  border-top: 0.5px dashed;
+  margin: 0 4px;
+  transition: border-color 0.5s ease;
+}
+
+.headerRight {
+  pointer-events: auto;
+}
+
+/* ── Top-right index block ────────────────────────── */
+.topRightBlock {
   position: absolute;
+  top: 0;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 12px 0 14px;
+  padding-left: 0;
+  z-index: 10;
+}
+
+.topRightNav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.topRightLink {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+.topRightLink:hover { opacity: 1; }
+
+.topRightDivider {
+  width: 100%;
+  border-top: 0.5px dashed;
+  margin: 2px 0;
+}
+
+.topRightMeta {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.4;
+}
+
+.topRightTagline {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(11px, 1.1vw, 15px);
   font-weight: 700;
-  letter-spacing: 0.02em;
-  left: 24px;
-  top: 50px;
-  font-size: 14px;
-  z-index: 2;
-}
-
-.topCenter {
-  position: absolute;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 50px;
-  font-size: 28px;
-  z-index: 2;
-}
-
-.topRight {
-  position: absolute;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  right: 22px;
-  top: 50px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0;
   text-align: right;
-  font-size: 12px;
-  line-height: 1.05;
-  max-width: 260px;
-  z-index: 2;
 }
 
-.heroWrapper {
-  position: absolute;
-  left: 50%;
-  top: 44%;
-  transform: translate(-50%, -50%);
+@media (max-width: 700px) {
+  .topRightBlock {
+    padding: 8px 0 10px;
+    padding-left: 10px;
+    gap: 4px;
+    right: 8px;
+  }
+  .topRightTagline {
+    font-size: 9px;
+  }
+  .topRightMeta {
+    font-size: 8px;
+  }
+}
+
+/* ── Main ─────────────────────────────────────────── */
+.main {
+  position: relative;
+  z-index: 1;
+  position: relative;
+  padding: 12px;
+  padding-bottom: 80px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.heroWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 24px 12px 32px;
+}
+
+.heroCenterBlock {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 36px;
-  z-index: 2;
+  gap: 40px;
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 24px;
 }
 
-.hero {
-  text-align: center;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  font-size: clamp(11px, 1.35vw, 22px);
-  width: 90vw;
-  line-height: 1.15;
-}
-
-.heroSubtitle {
-  text-align: center;
-  font-family: 'TeXGyreHeros', Helvetica, Arial, sans-serif;
-  font-size: clamp(13px, 1.1vw, 18px);
-  font-weight: 400;
-  line-height: 1.8;
-  color: #ffffff;
-  max-width: 50vw;
-  opacity: 0.9;
-}
-
-.heroButtons {
+.heroMetaRow {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.6;
+}
+
+.heroMetaDash {
+  display: inline-block;
+  width: 20px;
+  border-top: 0.5px dashed;
+  transition: border-color 0.5s ease;
+}
+
+.heroTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(28px, 6vw, 80px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  text-align: center;
+  line-height: 0.88;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.videoWindowTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(22px, 4vw, 56px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  text-align: center;
+  line-height: 0.9;
+  margin: 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(20vw) rotate(-20deg);
+  animation: slideUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) 1200ms forwards;
+}
+
+.heroLine {
+  display: inline;
+  white-space: nowrap;
+}
+
+.letter {
+  display: inline-block;
+  opacity: 0;
+  animation: letterIn 0.08s ease forwards;
+}
+
+.getStartedBtn {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  border: 0.5px dashed;
+  padding: 10px 28px;
+  transition: opacity 0.2s;
+}
+.getStartedBtn:hover { opacity: 0.6; }
+
+/* ── Bottom Panels ────────────────────────────────── */
+.panelsBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 12px;
+  pointer-events: none;
+}
+
+.panelsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  width: 100%;
+}
+
+.panelLeft {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  pointer-events: auto;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.dotRule {
+  flex: 1;
+  border-top: 0.5px dashed;
+  transition: border-color 0.5s ease;
+}
+
+.panelTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(18px, 3vw, 40px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+
+.panelRight {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  max-width: 360px;
+  text-align: right;
+  flex-shrink: 0;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.panelRight p {
+  margin: 0;
+  opacity: 0;
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.panelRightMeta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  white-space: nowrap;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.dotRuleRight {
+  flex: 0 0 20px;
+  border-top: 0.5px dashed;
+  transition: border-color 0.5s ease;
+}
+
+/* ── Announcement Section ────────────────────────── */
+.announcementSection {
+  transition: background 0.5s ease, color 0.5s ease;
+  cursor: pointer;
+  border-top: 0.5px dashed;
+}
+
+.announcementTitleWrap {
+  border-bottom: 0.5px dashed;
+  width: 100%;
+  overflow: hidden;
+}
+
+.announcementTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.055em;
+  line-height: 0.85;
+  margin: 0;
+  font-size: clamp(32px, 11.2vw, 160px);
+  white-space: nowrap;
+  text-align: center;
+  padding: 0.05em 0;
+  width: 100%;
+}
+
+.announcementMedia {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  cursor: default;
+}
+
+.mediaLeft {
+  border-right: 0.5px dashed;
+}
+
+.mediaRight {}
+
+.mediaLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-bottom: 0.5px dashed;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.6;
+}
+
+@media (max-width: 700px) {
+  .announcementMedia {
+    grid-template-columns: 1fr;
+  }
+  .mediaLeft {
+    border-right: none;
+    border-bottom: 0.5px dashed;
+  }
+}
+
+/* ── Featured Project Row ─────────────────────────── */
+.featuredRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 0.5px dashed;
+}
+
+.featuredVideo {
+  border-right: 0.5px dashed;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.featuredContent {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   justify-content: center;
 }
 
-.btnPrimary {
-  background: rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.4);
-  padding: 10px 28px;
-  font-family: 'TeXGyreHeros', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  font-size: 11px;
+.featuredMeta {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  cursor: not-allowed;
-  text-decoration: none;
-  pointer-events: none;
+  letter-spacing: 0.08em;
+  opacity: 0.5;
 }
 
-.btnSecondary {
-  background: transparent;
-  color: rgba(255, 255, 255, 0.3);
-  padding: 10px 28px;
-  font-family: 'TeXGyreHeros', Helvetica, Arial, sans-serif;
+.featuredTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(28px, 4vw, 56px);
   font-weight: 700;
-  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  cursor: not-allowed;
-  text-decoration: none;
-  pointer-events: none;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin: 0;
 }
 
-.bottomCenter {
-  position: absolute;
+.featuredText {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 18px;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  opacity: 0.75;
+  margin: 0;
+  max-width: 420px;
+}
+
+.featuredBtn {
+  display: inline-block;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  border: 0.5px dashed;
+  padding: 10px 24px;
+  align-self: flex-start;
+  transition: opacity 0.2s;
+}
+.featuredBtn:hover { opacity: 0.6; }
+
+@media (max-width: 700px) {
+  .featuredRow {
+    grid-template-columns: 1fr;
+  }
+  .featuredVideo {
+    border-right: none;
+    border-bottom: 0.5px dashed;
+    padding: 16px;
+  }
+  .featuredContent {
+    padding: 24px 16px;
+  }
+}
+
+/* ── Three Pillars Section ────────────────────────── */
+.pillarsSection {
+  transition: background 0.5s ease, color 0.5s ease;
+  border-top: 0.5px dashed;
+  cursor: pointer;
+}
+
+.pillarsLabelRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-bottom: 0.5px dashed;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+}
+
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  padding: 32px 24px 40px;
+  align-items: start;
+}
+
+/* ── Windows 95 Video Player ─────────────────────── */
+.videoWin95 {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  box-shadow: 1px 1px 0 #0a0a0a;
+  background: #C0C0C0;
+  width: 100%;
+  cursor: default;
+}
+
+.videoWin95TitleBar {
+  background: linear-gradient(to right, #000080, #1084D0);
+  padding: 3px 4px 3px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+.videoWin95Icon {
+  color: #FFFFFF;
+  font-size: 9px;
+}
+
+.videoWin95TitleText {
+  color: #FFFFFF;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.videoWin95Screen {
+  border: 2px solid;
+  border-color: #808080 #FFFFFF #FFFFFF #808080;
+  margin: 4px 4px 2px;
+  background: #000000;
+  aspect-ratio: 16/9;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.videoWin95Placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.videoWin95PlayIcon {
+  font-size: 28px;
+  color: #444444;
+  opacity: 0.6;
+}
+
+.videoWin95PlaceholderLabel {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 8px;
+  color: #666666;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.videoWin95Controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px 4px 4px;
+  background: #C0C0C0;
+}
+
+.videoWin95CtrlBtn {
+  width: 28px;
+  height: 20px;
+  border: 1.5px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  background: #C0C0C0;
+  color: #000000;
+  font-size: 7px;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  flex-shrink: 0;
+}
+
+.videoWin95Scrubber {
+  flex: 1;
+  height: 20px;
+  border: 1.5px solid;
+  border-color: #808080 #FFFFFF #FFFFFF #808080;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  padding: 0 2px;
+}
+
+.videoWin95ScrubberTrack {
+  width: 0%;
+  height: 4px;
+  background: #000080;
+}
+
+.videoWin95Time {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  color: #000000;
+  white-space: nowrap;
+  padding: 0 4px;
+  border: 1.5px solid;
+  border-color: #808080 #FFFFFF #FFFFFF #808080;
+  background: #FFFFFF;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Windows 95 Window ────────────────────────────── */
+.win95Window {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  box-shadow: 1px 1px 0 #0a0a0a;
+  background: #C0C0C0;
+  cursor: default;
+}
+
+.win95TitleBar {
+  background: linear-gradient(to right, #000080, #1084D0);
+  padding: 3px 4px 3px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+.win95TitleText {
+  color: #FFFFFF;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 8px;
-  font-size: 12px;
-  z-index: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-@media (max-width: 800px) {
-  .heroWrapper {
-    top: 42%;
-  }
+.win95Btns {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
 
-  .hero {
-    font-size: 2.6vw;
-    width: 94vw;
-  }
+.win95Btn {
+  width: 16px;
+  height: 14px;
+  border: 1.5px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  background: #C0C0C0;
+  color: #000000;
+  font-size: 8px;
+  line-height: 1;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-  .topCenter {
-    font-size: 18px;
-  }
+.win95BtnClose {
+  composes: win95Btn;
+  font-size: 7px;
+}
 
-  .topLeft {
-    font-size: 12px;
-  }
+.win95MenuBar {
+  display: flex;
+  gap: 0;
+  background: #C0C0C0;
+  border-bottom: 1px solid #808080;
+  padding: 1px 4px;
+}
 
-  .heroSubtitle {
-    max-width: 92vw;
+.win95MenuItem {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #000000;
+  padding: 1px 6px;
+  cursor: default;
+}
+
+.win95MenuItem:hover {
+  background: #000080;
+  color: #FFFFFF;
+}
+
+.win95Body {
+  background: #FFFFFF;
+  border: 2px solid;
+  border-color: #808080 #FFFFFF #FFFFFF #808080;
+  margin: 4px;
+  padding: 16px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.win95NumBadge {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  color: #808080;
+  letter-spacing: 0.08em;
+}
+
+.win95Title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(20px, 2.8vw, 42px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  margin: 0;
+  color: #000080;
+}
+
+.win95Text {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 10px;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  color: #222222;
+  margin: 0;
+}
+
+.win95StatusBar {
+  display: flex;
+  gap: 2px;
+  padding: 2px 4px 4px;
+  background: #C0C0C0;
+}
+
+.win95StatusCell {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  color: #000000;
+  border: 1.5px solid;
+  border-color: #808080 #FFFFFF #FFFFFF #808080;
+  padding: 1px 6px;
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .pillarsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 24px 16px 32px;
   }
+}
+
+/* ── Signup Section ───────────────────────────────── */
+.signupSection {
+  padding: 12px;
+  transition: background 0.5s ease, color 0.5s ease;
+  cursor: pointer;
+}
+
+.signupCard {
+  padding: 12px;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.signupHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.signupMeta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.signupDash {
+  flex: 1;
+  min-width: 16px;
+  border-top: 0.5px dashed currentColor;
+  opacity: 0.5;
+  margin: 0 4px;
+}
+
+.joinTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(22px, 4vw, 48px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+}
+
+.signupDivider {
+  border-top: 0.5px dashed currentColor;
+  opacity: 0.4;
+  margin: 8px 0;
+}
+
+.signupBody {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.signupDesc {
+  flex: 1;
+  min-width: 200px;
+  max-width: 380px;
+  font-size: 8.5px;
+  text-transform: none;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  opacity: 0.8;
+}
+
+.signupDesc p { margin-bottom: 8px; }
+.signupDesc p:last-child { margin-bottom: 0; }
+
+.signupFormWrap {
+  flex: 1;
+  min-width: 200px;
+  max-width: 280px;
+  cursor: default;
+}
+
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.signupForm input[type="text"],
+.signupForm input[type="email"] {
+  width: 100%;
+  border: none;
+  border-bottom: 0.5px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 0;
+  outline: none;
+}
+
+.signupForm input::placeholder { color: currentColor; opacity: 0.5; }
+
+.checkboxRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 8px;
+  text-transform: none;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.checkboxRow input { margin-top: 2px; flex-shrink: 0; }
+
+.submitBtn {
+  margin-top: 4px;
+  width: 100%;
+  background: currentColor;
+  color: inherit;
+  border: none;
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 7px 8px;
+  cursor: pointer;
+  mix-blend-mode: difference;
+  transition: opacity 0.2s;
+}
+
+.submitBtn:hover { opacity: 0.8; }
+
+.formLegal {
+  font-size: 7.5px;
+  text-transform: none;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  opacity: 0.5;
+  margin-top: 2px;
+}
+
+.formLegal a { text-decoration: underline; }
+
+/* ── Mobile ───────────────────────────────────────── */
+@media (max-width: 700px) {
+  .heroTitle {
+    font-size: clamp(26px, 8vw, 48px);
+  }
+  .heroCenterBlock {
+    gap: 20px;
+  }
+  .headerLeft {
+    display: none;
+  }
+  .getStartedBtn {
+    display: none;
+  }
+}
+
+/* ── Floating button (mobile only) ───────────────── */
+.getStartedFab {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .getStartedFab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    z-index: 1000;
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    border: 0.5px dashed;
+    padding: 12px 20px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+    transition: opacity 0.2s;
+  }
+  .getStartedFab:hover { opacity: 0.7; }
 }
